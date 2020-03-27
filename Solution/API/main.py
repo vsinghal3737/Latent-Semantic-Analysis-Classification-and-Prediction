@@ -3,9 +3,10 @@ from Testing import Testing
 from PreprocessingData import PreprocessingData
 from Prediction import Prediction
 
-path = '..\\shuffled-full-set-hashed.csv'
+# path = '..\\shuffled-full-set-hashed.csv'
+# data = PreprocessingData(path)
 
-data = PreprocessingData(path)
+data = PreprocessingData()
 data.DataSplit()
 data.WordMapper()
 data.SwapWordByMapper()
