@@ -46,7 +46,7 @@ class PreprocessingData:
             self.TrainingData.iloc[i][1] = temp[:]
             temp = []
 
-    def Categorize(self):
+    def CategorizeForEach(self):
         for i in range(len(self.TrainingData)):
             if self.TrainingData.iloc[i][0] in self.docForEach:
                 self.docForEach[self.TrainingData.iloc[i][0]].extend(self.TrainingData.iloc[i][1][:])
