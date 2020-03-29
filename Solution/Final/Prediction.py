@@ -12,7 +12,8 @@ class Prediction:
 
         for key in self.rareWords.keys():
             for i in data:
-                if i in self.rareWords[key]:
+                x = str(i) if type(list(self.rareWords['BILL'].keys())[0]) == str else i
+                if x in self.rareWords[key]:
                     hitCount[key] += 1
 
         return max(hitCount.items(), key=lambda x: x[1])[0]
