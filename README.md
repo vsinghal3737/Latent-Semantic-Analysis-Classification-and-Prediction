@@ -157,5 +157,5 @@ Note: Final Folder in Solution Holds the finished and tested files
 
 ##### mapper
 	it will map all the unique encoded words from string input to a unique ID
-#### rareWords
+##### rareWords
 	Top 100 most important words for each category of output, like BILL, RETURNED CHECK, POLICY CHANGE, etc.
