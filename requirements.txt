@@ -1,0 +1,7 @@
+flask
+sklearn
+numpy
+scipy
+matplotlib
+jupyter notebook
+pandas

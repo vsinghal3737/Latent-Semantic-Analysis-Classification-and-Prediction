@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request
+import json
+import os
 
 from PreprocessingData import PreprocessingData
 from LSA import LSA
@@ -12,11 +14,20 @@ global data
 global lsa
 global testing
 global prediction
+global rareWords
+global mapper
+
+global loadedMapper
+global loadedRareWords
 
 data = None
 lsa = None
 testing = None
 prediction = None
+rareWords = None
+mapper = None
+loadedMapper = None
+loadedRareWords = None
 
 
 @app.route('/')  # 'http://www.google.com/'
@@ -53,11 +64,15 @@ def datasplit():
 @app.route('/DataPrcessing')
 def dataprocessing():
     global data
+    global mapper
     # return {'data': dir(data)}
     data.WordMapper()
     data.SwapWordByMapper()
     data.CategorizeForEach()
     data.CatergorizeForAll()
+
+    mapper = data.mapper
+
     return 'Data Processing Done'
 
 
@@ -70,61 +85,110 @@ def lsatfidf():
     lsa.TF_IDF()
 
     return 'TFIDF Done'
-    # return {'lsa': str(type(lsa))}
 
 
 @app.route('/TopWords')
 def topword():
     global lsa
+    global rareWords
     lsa.TopWords()
     x = {}
     for key in data.keys:
         x[key] = list(lsa.rareWords[key].keys())
 
+    rareWords = lsa.rareWords
+
     return jsonify({'RareWords': x})
+
+
+@app.route('/SaveLSA')
+def savelsa():
+    global rareWords
+    global mapper
+    with open('rareWords.json', 'w') as file:
+        json.dump(rareWords, file)
+    with open('mapper.json', 'w') as file:
+        json.dump(mapper, file)
+    return 'mapper and rareWords saved in ' + os.path.abspath('')
+
+
+@app.route('/LoadLSA', methods=['GET', 'POST'])
+def loadlsa():
+    request_path = ''
+    if request.method == 'POST':
+        request_path = request.json['path']
+
+    global loadedRareWords
+    global loadedMapper
+
+    loadedRareWords = None
+    with open(request_path + 'rareWords.json', 'r') as file:
+        loadedRareWords = json.load(file)
+
+    loadedMapper = None
+    with open(request_path + 'mapper.json', 'r') as file:
+        loadedMapper = json.load(file)
+
+    try:
+        os.path.abspath(request_path)
+    except:
+        return 'mapper and rareWords are loaded from ' + os.path.abspath('')
+    else:
+        return 'mapper and rareWords are loaded from ' + os.path.abspath(request_path)
 
 
 @app.route('/PredictOne', methods=['POST'])
 def predictone():
-    global lsa
-    global data
+    request_data = request.json
+
+    if not predictionFactory(request_data['loaded']):
+        return "Load or Create LSA Model"
+
     global prediction
 
-    # if not prediction:
-    prediction = Prediction(lsa, data)
-    request_new_data = request.get_json()
-    request_new_data = request_new_data['data']
-    # Input = numpy.array(list(map(lambda x: x[1], request_new_data.items())))
-    predicted = prediction.predictOne(request_new_data)
+    predicted = prediction.predictOne(request_data['data'])
 
     return jsonify({"prediction": predicted})
 
 
 @app.route('/PredictMany', methods=['POST'])
 def predictmany():
-    global lsa
-    global data
-    global prediction
+    request_data = request.json
+    if not predictionFactory(request_data['loaded']):
+        return "Load or Create LSA Model"
 
-    # if not prediction:
-    prediction = Prediction(lsa, data)
-    request_new_data = request.get_json()
-    request_new_data = request_new_data['data']
-    # Input = numpy.array(list(map(lambda x: x[1], request_new_data.items())))
-    predicted = prediction.predictMany(request_new_data)
+    global prediction
+    predicted = prediction.predictMany(request_data['data'])
 
     return jsonify({"prediction": predicted})
 
 
+def predictionFactory(loaded):
+    global prediction
+    if loaded is True:
+        global loadedMapper
+        global loadedRareWords
+        if loadedMapper is None or loadedRareWords is None:
+            return False
+        prediction = Prediction(mapper=loadedMapper, rareWords=loadedRareWords)
+    else:
+        global mapper
+        global rareWords
+        if mapper is None or rareWords is None:
+            return False
+        prediction = Prediction(mapper=mapper, rareWords=rareWords)
+    return True
+
+
 @app.route('/Testing')
 def testing():
-    global lsa
-    global data
-    global testing
     global prediction
-    # if not prediction:
-    prediction = Prediction(lsa, data)
+    if not prediction:
+        global mapper
+        global rareWords
+        prediction = Prediction(mapper, rareWords)
 
+    global testing
     predictedOutput = prediction.predictMany(data.TestingData['input'])
 
     actualOutput = data.TestingData['output']
@@ -209,4 +273,4 @@ def Development():
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=False)
