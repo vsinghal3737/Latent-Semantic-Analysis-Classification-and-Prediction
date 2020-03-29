@@ -61,3 +61,8 @@ Webservice spec:
 
 
 ## Solution
+Technologies Used
+ - Python Programming Language
+ - Numpy, Pandas, scikit-learn libraries for data processing and creating LSA model
+ - json for saving LSA model
+ - Flask for creating APIs
