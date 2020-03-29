@@ -5,6 +5,8 @@
 * [Mission](#Mission)
 * [Measurement Criteria](#Measurement-Criteria)
 * [A few more details](#A-few-more-details)
+
+* [Solution](#Solution)
 * [Project Setup](#Project-Setup)
 * [RESTful URLs](#RESTful-URLs)
 
@@ -155,7 +157,7 @@ Note: Final Folder in Solution Holds the finished and tested files
 - '/ScoreView' : POST
 	return a string type of score of LSA model, which will give a better visual of score<br>
 
-##### mapper
-	it will map all the unique encoded words from string input to a unique ID
-##### rareWords
+##### mapper: Dictionary Type {key : (key, id)tupleType}
+	It will map all the unique encoded words from string input to a unique ID
+##### rareWords: Dictionary Type {key : (Top 100 Words)listType}
 	Top 100 most important words for each category of output, like BILL, RETURNED CHECK, POLICY CHANGE, etc.
