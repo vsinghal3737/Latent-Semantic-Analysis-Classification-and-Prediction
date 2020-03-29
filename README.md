@@ -132,12 +132,12 @@ Note: Final Folder in Solution Holds the finished and tested files
 	I highly recommend to save and load LSA model and then run new inputs for predictions on them, it will save data and TFIDF processing time.
 
 - '/PredictOne' : POST<br>
-	It will predict the output for one string statement and return {"prediction" : "<predictedOutput>"}
+	It will predict the output for one string statement and return {"prediction" : "<predictedOutput>"}<br>
 	Format = { "loaded" : ("< True:False (use loaded LSA?:use new LSA?) >")boolType, "data" : "<input>"(stringType) }
 
 
 - '/PredictMany' : POST
-	It will predict the output for multiple string statements and return {"prediction" : ["<predictedOutputs>",...]}
+	It will predict the output for multiple string statements and return {"prediction" : ["<predictedOutputs>",...]}<br>
 	Format = { "loaded" : ("< True:False (use loaded LSA?:use new LSA?) >")boolType, "data" : ["<inputs>"(stringType)] }
 
 
@@ -153,9 +153,7 @@ Note: Final Folder in Solution Holds the finished and tested files
 	Format = {<("categoryKey")stringType> : <ScoreforEachKey( {"Accuracy": float, "Precision": float, "Recall": float, "F1_Score": float, "Support": int} )> }
 
 - '/ScoreView' : POST
-	return a string type of score of LSA model, which will give a better visual of score
-	Accuracy   Precision   Recall   F1_Score   Support<br>
-	float      float       float    float      int
+	return a string type of score of LSA model, which will give a better visual of score<br>
 
 ##### mapper
 	it will map all the unique encoded words from string input to a unique ID
