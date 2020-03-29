@@ -1,5 +1,13 @@
 # HeavyWater Machine Learning Problem
 
+* [Purpose](#Purpose)
+* [Problem Statement](#Problem Statement)
+* [Mission](#Mission)
+* [Measurement Criteria](#Measurement Criteria)
+* [A few more details](#A few more details)
+* [Project Setup](#Project Setup)
+* [RESTful URLs](#RESTful URLs)
+
 ### Purpose
 
 The purpose of this problem is to evaluate your abilities in several dimensions at once.
@@ -27,9 +35,7 @@ The first field is the document label. Everything after the comma is a space del
 
 The dataset is included as part of this repo.
 
-### Your Mission
-
-Should you choose to accept it ...
+### Mission
 
 Train a document classification model. Deploy your model to a public cloud platform (AWS/Google/Azure/Heroku) as a webservice, send us an email with the URL to you github repo, the URL of your publicly deployed service so we can submit test cases and a recorded screen cast demo of your solution's UI, its code and deployment steps. Also, we use AWS so we are partial to you using that ... just saying.
 
@@ -70,7 +76,8 @@ Technologies Used
 Note: Final Folder in Solution Holds the finished and tested files
 
 ### Project Setup
- 1.	To download Python: [click here](https://www.python.org/downloads/)  
+
+1.	To download Python: [click here](https://www.python.org/downloads/)  
 	Install the software as mentioned in it, and add its path to the system environment variable
 
 2. 	To download Pip: [click here](https://bootstrap.pypa.io/get-pip.py)  
@@ -85,8 +92,9 @@ Note: Final Folder in Solution Holds the finished and tested files
 	In Python console: `import flask, numpy, pandas, json, sklearn`  
 	**If you get no error, Project Setup is Done**
 
-5. To run the project:  
+5.      To run the project:  
 	Open Command Prompt and navigate to `Solution/Final` where app.py file is located  
 	Type: `python app.py`
 	In the web browser type `localhost:5000/` to start using the web interface of the project  
 
+## RESTful URLs
