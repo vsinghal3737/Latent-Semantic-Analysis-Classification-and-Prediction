@@ -79,22 +79,22 @@ Note: Final Folder in Solution Holds the finished and tested files
 
 ### Project Setup
 
-1.	To download Python: [click here](https://www.python.org/downloads/)  
+1.	To download Python: [click here](https://www.python.org/downloads/)<br>  
 	Install the software as mentioned in it, and add its path to the system environment variable
 
-2. 	To download Pip: [click here](https://bootstrap.pypa.io/get-pip.py)  
-	Save the file `ctrl+s` (file should save in .py format)  
+2. 	To download Pip: [click here](https://bootstrap.pypa.io/get-pip.py)<br>  
+	Save the file `ctrl+s` (file should save in .py format)<br>  
 	Open command prompt in the download location: `python get-pip.py`
 
-3.	To install Libraries that used in the project  
+3.	To install Libraries that used in the project<br>  
 	Type in the command prompt: `pip install -r requirements.txt` in root dir of the project
 
-4.	To check if everything installed properly  
+4.	To check if everything installed properly<br>
 	In command prompt: `python`  
 	In Python console: `import flask, numpy, pandas, json, sklearn`  
 	**If you get no error, Project Setup is Done**
 
-5.	To run the project:
+5.	To run the project:<br>
 	Extract shuffled-full-set-hashed.csv file in `Problem` folder in the same dir.
 	Open Command Prompt and navigate to `Solution/Final` where app.py file is located  
 	Type: `python app.py`
