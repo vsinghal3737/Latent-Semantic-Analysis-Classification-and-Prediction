@@ -57,3 +57,7 @@ Webservice spec:
 - URL encoded GET parameter "words" returns predicted document type (confidence is a bonus) in field "prediction" and "confidence"
 - HTML pages should be readable by a human and allow for action, aka input field and submit buttons etc.
 - Even a broken clock is right twice a day. A working webservice is a good first goal. It could return the highest likelihood doc class.
+
+
+
+## Solution
