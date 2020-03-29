@@ -92,7 +92,7 @@ Note: Final Folder in Solution Holds the finished and tested files
 	In Python console: `import flask, numpy, pandas, json, sklearn`  
 	**If you get no error, Project Setup is Done**
 
-5.      To run the project:
+5.	To run the project:
 	Extract shuffled-full-set-hashed.csv file in `Problem` folder in the same dir.
 	Open Command Prompt and navigate to `Solution/Final` where app.py file is located  
 	Type: `python app.py`
@@ -102,43 +102,60 @@ Note: Final Folder in Solution Holds the finished and tested files
  - '/' : GET
 	To get started and to check if project is running or not.
 
- - '/DataRead' : GET | POST
- 	GET- Read the data from default location
-	POST- Read the data from the path given in post request
+ - '/DataRead' : GET | POST <br>
+ 	GET- Read the data from default location<br>
+	POST- Read the data from the path given in post request<br>
 		Format = { "path" : ("<data_path>")stringType }
 
-- '/DataSplit' : GET | POST
- 	GET- Take default data splitting Value, Ratio of 7:3 (Training : Testing) 
-	POST- assign new splitting ratio
+- '/DataSplit' : GET | POST<br>
+ 	GET- Take default data splitting Value, Ratio of 7:3 (Training : Testing)<br>
+	POST- assign new splitting ratio<br>
 		Format = { "ratio" : (<splitting_ratio>)floatType }
 
-- '/DataPrcessing' : GET
- 	Process the training data and create [mapper](#mapper) dictionary
+- '/DataPrcessing' : GET<br>
+ 	Process the training data and create [mapper](#mapper) dictionary<br>
 
-- '/TFIDF' : GET
- 	This will start TFIDF process on the training data
+- '/TFIDF' : GET<br>
+ 	This will start TFIDF process on the training data<br>
 	To Know more on TFIDF [click here](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
 
-- '/TopWords' : GET
+- '/TopWords' : GET<br>
  	This will create [rareWords](#rareWords) dictionary from processed training data with the help of TFIDF API
 
-- '/SaveLSA' : GET
+- '/SaveLSA' : GET<br>
+	It will save LSA model in the local repository, which can be used later
 
+- '/LoadLSA' : GET | POST<br>
+	GET- It will load LSA model from Default dir<br>
+	POST- It will load LSA model from the path given in post request<br>
+		Format = { "path" : ("<data_path>")stringType }<br>
+	I highly recommend to save and load LSA model and then run new inputs for predictions on them, it will save data and TFIDF processing time.
 
-- '/LoadLSA' : GET | POST
+- '/PredictOne' : POST<br>
+	It will predict the output for one string statement and return {"prediction" : "<predictedOutput>"}
+	Format = { "loaded" : ("< True:False (use loaded LSA?:use new LSA?) >")boolType, "data" : "<input>"(stringType) }
 
-
-- '/PredictOne' : POST
 
 - '/PredictMany' : POST
+	It will predict the output for multiple string statements and return {"prediction" : ["<predictedOutputs>",...]}
+	Format = { "loaded" : ("< True:False (use loaded LSA?:use new LSA?) >")boolType, "data" : ["<inputs>"(stringType)] }
+
 
 - '/Testing' : GET
+	It will setup testing environment and take care of variables which are needed for getting further results.
 
 - '/ConfusionMatrix' : GET
+	return the dictionary type confusion matrix of the LSA model<br>
+	Format = {<("categoryKey")stringType> : <ConfusionMatrixforEachKey( [ [00,01], [10,11] ] )>}
 
 - '/Score' : POST
+	return the dictionary type of LSA model Score<br>
+	Format = {<("categoryKey")stringType> : <ScoreforEachKey( {"Accuracy": float, "Precision": float, "Recall": float, "F1_Score": float, "Support": int} )> }
 
 - '/ScoreView' : POST
+	return a string type of score of LSA model, which will give a better visual of score
+	Accuracy   Precision   Recall   F1_Score   Support<br>
+	float      float       float    float      int
 
 ##### mapper
 	it will map all the unique encoded words from string input to a unique ID
