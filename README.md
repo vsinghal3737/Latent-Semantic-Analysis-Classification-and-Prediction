@@ -1,12 +1,12 @@
 # HeavyWater Machine Learning Problem
 
 * [Purpose](#Purpose)
-* [Problem Statement](#Problem Statement)
+* [Problem Statement](#Problem-Statement)
 * [Mission](#Mission)
-* [Measurement Criteria](#Measurement Criteria)
-* [A few more details](#A few more details)
-* [Project Setup](#Project Setup)
-* [RESTful URLs](#RESTful URLs)
+* [Measurement Criteria](#Measurement-Criteria)
+* [A few more details](#A-few-more-details)
+* [Project Setup](#Project-Setup)
+* [RESTful URLs](#RESTful-URLs)
 
 ### Purpose
 
