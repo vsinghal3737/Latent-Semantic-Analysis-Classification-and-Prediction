@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-import numpy
 
 from PreprocessingData import PreprocessingData
 from LSA import LSA
@@ -25,22 +24,28 @@ def home():
     return "LSA API"
 
 
-@app.route('/DataRead', methods=['POST'])  # 'http://www.google.com/'
+@app.route('/DataRead', methods=['GET', 'POST'])  # 'http://www.google.com/'
 def dataread():
     global data
-    request_path = request.json
 
-    data = PreprocessingData(request_path['path'])
+    if request.method == 'POST':
+        request_path = request.json
+        data = PreprocessingData(request_path['path'])
+    else:
+        data = PreprocessingData()
 
     return 'Data Initialized'
 
 
-@app.route('/DataSplit', methods=['POST'])
+@app.route('/DataSplit', methods=['GET', 'POST'])
 def datasplit():
     global data
 
-    request_split_ratio = request.json
-    data.DataSplit(request_split_ratio['ratio'])
+    if request.method == 'POST':
+        request_split_ratio = request.json
+        data.DataSplit(request_split_ratio['ratio'])
+    else:
+        data.DataSplit()
 
     return 'Data Splitting Done'
 
@@ -79,8 +84,24 @@ def topword():
     return jsonify({'RareWords': x})
 
 
-@app.route('/Prediction', methods=['POST'])
-def prediction():
+@app.route('/PredictOne', methods=['POST'])
+def predictone():
+    global lsa
+    global data
+    global prediction
+
+    # if not prediction:
+    prediction = Prediction(lsa, data)
+    request_new_data = request.get_json()
+    request_new_data = request_new_data['data']
+    # Input = numpy.array(list(map(lambda x: x[1], request_new_data.items())))
+    predicted = prediction.predictOne(request_new_data)
+
+    return jsonify({"prediction": predicted})
+
+
+@app.route('/PredictMany', methods=['POST'])
+def predictmany():
     global lsa
     global data
     global prediction
@@ -92,7 +113,7 @@ def prediction():
     # Input = numpy.array(list(map(lambda x: x[1], request_new_data.items())))
     predicted = prediction.predictMany(request_new_data)
 
-    return jsonify({"prediction": dict(zip([i for i in range(len(request_new_data))], predicted))})
+    return jsonify({"prediction": predicted})
 
 
 @app.route('/Testing')
@@ -150,7 +171,7 @@ def scoreview():
     return x
 
 
-@app.route('/development')
+@app.route('/Development')
 def Development():
     global data
     global lsa

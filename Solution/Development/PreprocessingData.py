@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 
 
 class PreprocessingData:
-    def __init__(self, path='shuffled-full-set-hashed.csv'):
+    def __init__(self, path='../../Problem/shuffled-full-set-hashed.csv'):
         self.TrainingData = pd.read_csv(path, header=None)
         self.TestingData = pd.DataFrame()
 
