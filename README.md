@@ -92,9 +92,55 @@ Note: Final Folder in Solution Holds the finished and tested files
 	In Python console: `import flask, numpy, pandas, json, sklearn`  
 	**If you get no error, Project Setup is Done**
 
-5.      To run the project:  
+5.      To run the project:
+	Extract shuffled-full-set-hashed.csv file in `Problem` folder in the same dir.
 	Open Command Prompt and navigate to `Solution/Final` where app.py file is located  
 	Type: `python app.py`
 	In the web browser type `localhost:5000/` to start using the web interface of the project  
 
 ## RESTful URLs
+ - '/' : GET
+	To get started and to check if project is running or not.
+
+ - '/DataRead' : GET | POST
+ 	GET- Read the data from default location
+	POST- Read the data from the path given in post request
+		Format = { "path" : ("<data_path>")stringType }
+
+- '/DataSplit' : GET | POST
+ 	GET- Take default data splitting Value, Ratio of 7:3 (Training : Testing) 
+	POST- assign new splitting ratio
+		Format = { "ratio" : (<splitting_ratio>)floatType }
+
+- '/DataPrcessing' : GET
+ 	Process the training data and create [mapper](#mapper) dictionary
+
+- '/TFIDF' : GET
+ 	This will start TFIDF process on the training data
+	To Know more on TFIDF [click here](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)
+
+- '/TopWords' : GET
+ 	This will create [rareWords](#rareWords) dictionary from processed training data with the help of TFIDF API
+
+- '/SaveLSA' : GET
+
+
+- '/LoadLSA' : GET | POST
+
+
+- '/PredictOne' : POST
+
+- '/PredictMany' : POST
+
+- '/Testing' : GET
+
+- '/ConfusionMatrix' : GET
+
+- '/Score' : POST
+
+- '/ScoreView' : POST
+
+##### mapper
+	it will map all the unique encoded words from string input to a unique ID
+#### rareWords
+	Top 100 most important words for each category of output, like BILL, RETURNED CHECK, POLICY CHANGE, etc.
