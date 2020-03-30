@@ -101,7 +101,7 @@ Note: Final Folder in Solution Holds the finished and tested files
 	In the web browser type `localhost:5000/` to start using the web interface of the project  
 
 ## RESTful URLs
- - '/' : GET
+ - '/' : GET<br>
 	To get started and to check if project is running or not.
 
  - '/DataRead' : GET | POST <br>
