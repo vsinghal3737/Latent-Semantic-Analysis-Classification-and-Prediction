@@ -134,12 +134,13 @@ Note: Final Folder in Solution Holds the finished and tested files
 	I highly recommend to save and load LSA model and then run new inputs for predictions on them, it will save data and TFIDF processing time.
 
 - '/PredictOne' : POST<br>
-	It will predict the output for one string statement and return {"prediction" : "<predictedOutput>"}<br>
+	It will predict the output for one string statement and return { "prediction" : <("predicted")StringType>, "confidence" : <("confidence")FloatType> } <br>
 	Format = { "loaded" : ("< True:False (use loaded LSA?:use new LSA?) >")boolType, "data" : "<input>"(stringType) }
 
 
 - '/PredictMany' : POST
-	It will predict the output for multiple string statements and return {"prediction" : ["<predictedOutputs>",...]}<br>
+	It will predict the output for multiple string statements and return { "prediction": [ {"prediction" : <("predicted")StringType>, "confidence" : <("confidence")FloatType>} ] }
+<br>
 	Format = { "loaded" : ("< True:False (use loaded LSA?:use new LSA?) >")boolType, "data" : ["<inputs>"(stringType)] }
 
 
