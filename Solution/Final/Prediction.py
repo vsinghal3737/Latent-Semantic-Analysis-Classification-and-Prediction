@@ -4,10 +4,19 @@ class Prediction:
         self.mapper = mapper
 
     def predictOne(self, data):
-        # WordSwapperWithMapper
-        data = set(filter(lambda val: val is not None, map(lambda x: self.mapper[x][1] if x in self.mapper else None, data.split(' '))))
 
-        # CommonWordCheck
+        # WordSwapperWithMapper
+        data = set(
+            filter(
+                lambda val: val is not None,
+                map(
+                    lambda x: self.mapper[x][1] if x in self.mapper else None,
+                    data.split(' ')
+                )
+            )
+        )
+
+        # Prediction
         hitCount = {key: 0 for key in self.rareWords.keys()}
 
         for key in self.rareWords.keys():
@@ -16,10 +25,15 @@ class Prediction:
                 if x in self.rareWords[key]:
                     hitCount[key] += 1
 
-        return max(hitCount.items(), key=lambda x: x[1])[0]
+        hitCountSorted = sorted(hitCount.items(), key=lambda x: x[1], reverse=True)
+        prediction = hitCountSorted.pop(0)
+
+        # Confidence
+        predictedVal = list(map(lambda x: x[1], hitCountSorted))
+        average = sum(predictedVal) / len(predictedVal)
+        confidence = prediction[1] / (prediction[1] + average)
+
+        return [prediction[0], round(confidence, 2)]
 
     def predictMany(self, dataList):
-        output = []
-        for i in range(len(dataList)):
-            output.append(self.predictOne(dataList[i]))
-        return output
+        return [self.predictOne(dataList[i]) for i in range(len(dataList))]

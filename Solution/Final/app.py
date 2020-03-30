@@ -116,7 +116,7 @@ def savelsa():
 def loadlsa():
     request_path = ''
     if request.method == 'POST':
-        request_path = request.json['path']
+        request_path = request.json['path'] + '\\'
 
     global loadedRareWords
     global loadedMapper
@@ -148,7 +148,7 @@ def predictone():
 
     predicted = prediction.predictOne(request_data['data'])
 
-    return jsonify({"prediction": predicted})
+    return jsonify({"prediction": predicted[0], 'confidence': predicted[1]})
 
 
 @app.route('/PredictMany', methods=['POST'])
@@ -160,7 +160,16 @@ def predictmany():
     global prediction
     predicted = prediction.predictMany(request_data['data'])
 
-    return jsonify({"prediction": predicted})
+    return jsonify(
+        {
+            "prediction": [
+                {
+                    "prediction": vals[0],
+                    'confidence': vals[1]
+                } for vals in predicted
+            ]
+        }
+    )
 
 
 def predictionFactory(loaded):
