@@ -33,7 +33,7 @@ class Prediction:
         average = sum(predictedVal) / len(predictedVal)
         confidence = prediction[1] / (prediction[1] + average)
 
-        return [prediction[0], round(confidence, 2)]
+        return {'prediction': prediction[0], 'confidence': round(confidence, 2)}
 
     def predictMany(self, dataList):
         return [self.predictOne(dataList[i]) for i in range(len(dataList))]

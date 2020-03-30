@@ -148,7 +148,7 @@ def predictone():
 
     predicted = prediction.predictOne(request_data['data'])
 
-    return jsonify({"prediction": predicted[0], 'confidence': predicted[1]})
+    return jsonify(predicted)
 
 
 @app.route('/PredictMany', methods=['POST'])
@@ -160,16 +160,7 @@ def predictmany():
     global prediction
     predicted = prediction.predictMany(request_data['data'])
 
-    return jsonify(
-        {
-            "prediction": [
-                {
-                    "prediction": vals[0],
-                    'confidence': vals[1]
-                } for vals in predicted
-            ]
-        }
-    )
+    return jsonify(predicted)
 
 
 def predictionFactory(loaded):
