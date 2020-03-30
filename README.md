@@ -139,8 +139,7 @@ Note: Final Folder in Solution Holds the finished and tested files
 
 
 - '/PredictMany' : POST
-	It will predict the output for multiple string statements and return { "prediction": [ {"prediction" : <("predicted")StringType>, "confidence" : <("confidence")FloatType>} ] }
-<br>
+	It will predict the output for multiple string statements and return { "prediction": [ {"prediction" : <("predicted")StringType>, "confidence" : <("confidence")FloatType>} ] } <br>
 	Format = { "loaded" : ("< True:False (use loaded LSA?:use new LSA?) >")boolType, "data" : ["<inputs>"(stringType)] }
 
 
