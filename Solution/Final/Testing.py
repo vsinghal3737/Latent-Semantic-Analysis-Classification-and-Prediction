@@ -30,9 +30,9 @@ class Testing:
             Recall = TP / (TP + FN)
             F1_Score = 2 * Recall * Precision / (Recall + Precision)
             self.score[self.labels[i]] = {
-                'Accuracy': Accuracy,
-                'Precision': Precision,
-                'Recall': Recall,
-                'F1_Score': F1_Score,
+                'Accuracy': round(Accuracy, 2),
+                'Precision': round(Precision, 2),
+                'Recall': round(Recall, 2),
+                'F1_Score': round(F1_Score, 2),
                 'Support': support[self.labels[i]]
             }

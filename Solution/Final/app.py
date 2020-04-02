@@ -146,7 +146,7 @@ def predictone():
 
     global prediction
 
-    predicted = prediction.predictOne(request_data['data'])
+    predicted = prediction.predictOne(request_data['data'], confidence=True)
 
     return jsonify(predicted)
 
@@ -158,7 +158,7 @@ def predictmany():
         return "Load or Create LSA Model"
 
     global prediction
-    predicted = prediction.predictMany(request_data['data'])
+    predicted = prediction.predictMany(request_data['data'], confidence=True)
 
     return jsonify(predicted)
 
@@ -189,7 +189,7 @@ def testing():
         prediction = Prediction(mapper, rareWords)
 
     global testing
-    predictedOutput = prediction.predictMany(data.TestingData['input'])
+    predictedOutput = prediction.predictMany(data.TestingData['input'], confidence=False)
 
     actualOutput = data.TestingData['output']
 

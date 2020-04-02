@@ -3,7 +3,7 @@ class Prediction:
         self.rareWords = rareWords
         self.mapper = mapper
 
-    def predictOne(self, data):
+    def predictOne(self, data, confidence=False):
 
         # WordSwapperWithMapper
         data = set(
@@ -24,6 +24,8 @@ class Prediction:
                 x = str(i) if type(list(self.rareWords['BILL'].keys())[0]) == str else i
                 if x in self.rareWords[key]:
                     hitCount[key] += 1
+        if not confidence:
+            return sorted(hitCount.items(), key=lambda x: x[1], reverse=True)[0][0]
 
         hitCountSorted = sorted(hitCount.items(), key=lambda x: x[1], reverse=True)
         prediction = hitCountSorted.pop(0)
@@ -35,5 +37,5 @@ class Prediction:
 
         return {'prediction': prediction[0], 'confidence': round(confidence, 2)}
 
-    def predictMany(self, dataList):
-        return [self.predictOne(dataList[i]) for i in range(len(dataList))]
+    def predictMany(self, dataList, confidence=False):
+        return [self.predictOne(dataList[i], confidence) for i in range(len(dataList))]
